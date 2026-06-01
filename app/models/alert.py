@@ -13,10 +13,14 @@ class Alert(Base):
 
     title = Column(String)
 
+    description = Column(String)
+
     severity = Column(String)
+
+    risk_score = Column(Integer)
 
     source = Column(String)
 
-    status = Column(String)
+    enforcement_action = Column(String)
 
-    risk_score = Column(Integer)
+    status = Column(String, default="Open")

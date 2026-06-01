@@ -1,7 +1,6 @@
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
-from sqlalchemy import Boolean
 
 from app.database import Base
 
@@ -12,16 +11,16 @@ class Policy(Base):
 
     id = Column(Integer, primary_key=True)
 
-    name = Column(String)
+    policy_name = Column(String)
 
-    description = Column(String)
+    trigger_type = Column(String)
 
     ai_model = Column(String)
 
     risk_score = Column(Integer)
 
-    enforcement_action = Column(String)
+    action_type = Column(String)
 
     automation_level = Column(String)
 
-    is_active = Column(Boolean, default=True)
+    status = Column(String, default="Active")

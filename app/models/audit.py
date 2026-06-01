@@ -1,6 +1,9 @@
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import String
+from sqlalchemy import DateTime
+
+from datetime import datetime
 
 from app.database import Base
 
@@ -11,10 +14,19 @@ class AuditLog(Base):
 
     id = Column(Integer, primary_key=True)
 
-    action = Column(String)
+    event_type = Column(String)
 
-    username = Column(String)
+    severity = Column(String)
 
-    details = Column(String)
+    risk_score = Column(Integer)
 
-    timestamp = Column(String)
+    action_taken = Column(String)
+
+    ai_explanation = Column(String)
+
+    workflow_type = Column(String)
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )

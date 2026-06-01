@@ -1,0 +1,19 @@
+```gitignore id="t6kwb4"
+# Python Cache
+__pycache__/
+*.pyc
+
+# Database
+guardian_ai.db
+
+# Environment
+.env
+venv/
+
+# VSCode
+.vscode/
+
+# OS Files
+.DS_Store
+Thumbs.db
+```
