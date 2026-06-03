@@ -1,20 +1,17 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+from datetime import timedelta
 
-from jose import JWTError, jwt
+import hashlib
 
-from passlib.context import CryptContext
+from jose import jwt
+from jose import JWTError
 
 from fastapi import Depends
 from fastapi import HTTPException
+
 from fastapi.security import OAuth2PasswordBearer
 
 from sqlalchemy.orm import Session
-
-from app.config import (
-    SECRET_KEY,
-    ALGORITHM,
-    ACCESS_TOKEN_EXPIRE_MINUTES
-)
 
 from app.database import SessionLocal
 
@@ -22,16 +19,18 @@ from app.models.user import User
 
 
 # ==========================================
-# PASSWORD HASHING
+# JWT CONFIG
 # ==========================================
 
-pwd_context = CryptContext(
-    schemes=["pbkdf2_sha256"],
-    deprecated="auto"
-)
+SECRET_KEY = "guardian_ai_secret"
+
+ALGORITHM = "HS256"
+
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
+
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl="/login"
+    tokenUrl="login"
 )
 
 
@@ -51,12 +50,14 @@ def get_db():
 
 
 # ==========================================
-# HASH PASSWORD
+# PASSWORD HASHING
 # ==========================================
 
 def hash_password(password: str):
 
-    return pwd_context.hash(password)
+    return hashlib.sha256(
+        password.encode()
+    ).hexdigest()
 
 
 # ==========================================
@@ -64,13 +65,19 @@ def hash_password(password: str):
 # ==========================================
 
 def verify_password(
-    plain_password,
-    hashed_password
+
+    plain_password: str,
+
+    hashed_password: str
 ):
 
-    return pwd_context.verify(
-        plain_password,
-        hashed_password
+    return (
+
+        hash_password(
+            plain_password
+        )
+
+        == hashed_password
     )
 
 
@@ -78,7 +85,10 @@ def verify_password(
 # CREATE JWT TOKEN
 # ==========================================
 
-def create_access_token(data: dict):
+def create_access_token(
+
+    data: dict
+):
 
     to_encode = data.copy()
 
@@ -91,8 +101,11 @@ def create_access_token(data: dict):
     })
 
     encoded_jwt = jwt.encode(
+
         to_encode,
+
         SECRET_KEY,
+
         algorithm=ALGORITHM
     )
 
@@ -104,29 +117,38 @@ def create_access_token(data: dict):
 # ==========================================
 
 def get_current_user(
+
     token: str = Depends(oauth2_scheme),
+
     db: Session = Depends(get_db)
 ):
 
     credentials_exception = HTTPException(
+
         status_code=401,
-        detail="Invalid authentication"
+
+        detail="Invalid authentication credentials"
     )
 
     try:
 
         payload = jwt.decode(
+
             token,
+
             SECRET_KEY,
+
             algorithms=[ALGORITHM]
         )
 
-        username = payload.get("sub")
+        username: str = payload.get("sub")
 
         if username is None:
+
             raise credentials_exception
 
     except JWTError:
+
         raise credentials_exception
 
     user = db.query(User).filter(
@@ -134,6 +156,7 @@ def get_current_user(
     ).first()
 
     if user is None:
+
         raise credentials_exception
 
     return user

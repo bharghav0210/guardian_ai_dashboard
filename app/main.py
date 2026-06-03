@@ -3,7 +3,11 @@ from fastapi import FastAPI
 
 from app.database import Base, engine
 
+from app.models.case import Case
 
+from app.models.evidence import Evidence
+
+from fastapi.middleware.cors import CORSMiddleware
 # =====================================================
 # ROUTE IMPORTS
 # =====================================================
@@ -63,6 +67,19 @@ from app.routes.emergency_routes import (
 from app.routes.model_analytics_routes import (
     router as model_analytics_router
 )
+
+from app.routes.admin_routes import (
+    router as admin_router
+)
+
+from app.routes.case_routes import (
+    router as case_router
+)
+
+from app.routes.evidence_routes import (
+    router as evidence_router
+)
+
 # =====================================================
 # IMPORT MODELS
 # =====================================================
@@ -96,6 +113,28 @@ app = FastAPI(
         "& Risk Monitoring Platform"
     )
 )
+
+
+# ==========================================
+# CORS MIDDLEWARE
+# ==========================================
+
+app.add_middleware(
+
+    CORSMiddleware,
+
+    allow_origins=[
+
+        "http://localhost:3000"
+    ],
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"]
+)
+
 
 
 # =====================================================
@@ -134,6 +173,11 @@ app.include_router(emergency_router)
 
 app.include_router(model_analytics_router)
 
+app.include_router(admin_router)
+
+app.include_router(case_router)
+
+app.include_router(evidence_router)
 # =====================================================
 # ROOT ROUTE
 # =====================================================

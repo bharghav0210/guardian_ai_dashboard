@@ -1,25 +1,54 @@
-from fastapi import APIRouter
 
-from app.services.model_analytics_service import (
-    generate_model_analytics
-)
+from fastapi import APIRouter
 
 router = APIRouter()
 
 
 # =====================================================
-# AI MODEL ANALYTICS
+# MODEL ANALYTICS
 # =====================================================
 
 @router.get("/model-analytics")
-def model_analytics():
-
-    analytics = generate_model_analytics()
+def get_model_analytics():
 
     return {
 
-        "message":
-        "AI model analytics generated",
+        "analytics": [
 
-        "analytics": analytics
+            {
+                "name": "Mon",
+                "threats": 24
+            },
+
+            {
+                "name": "Tue",
+                "threats": 31
+            },
+
+            {
+                "name": "Wed",
+                "threats": 18
+            },
+
+            {
+                "name": "Thu",
+                "threats": 42
+            },
+
+            {
+                "name": "Fri",
+                "threats": 37
+            },
+
+            {
+                "name": "Sat",
+                "threats": 29
+            },
+
+            {
+                "name": "Sun",
+                "threats": 51
+            }
+        ]
     }
+

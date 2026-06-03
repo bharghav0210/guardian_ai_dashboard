@@ -1,38 +1,51 @@
 from fastapi import APIRouter
-from fastapi import Form
-
-from app.services.workflow_service import execute_workflow
 
 router = APIRouter()
 
 
-# =========================================
-# EXECUTE AI WORKFLOW
-# =========================================
+# =====================================================
+# WORKFLOWS
+# =====================================================
 
-@router.post("/execute-workflow")
-def run_workflow(
-
-    content: str = Form(...),
-
-    workflow_type: str = Form(...),
-
-    automation_level: str = Form(...)
-
-):
-
-    result = execute_workflow(
-
-        content=content,
-
-        workflow_type=workflow_type,
-
-        automation_level=automation_level
-    )
+@router.get("/workflows")
+def get_workflows():
 
     return {
 
-        "message": "Workflow executed successfully",
+        "workflows": [
 
-        "result": result
+            {
+                "name":
+                "Threat Detection Pipeline",
+
+                "progress":
+                "82%",
+
+                "status":
+                "Running"
+            },
+
+            {
+                "name":
+                "AI Risk Assessment",
+
+                "progress":
+                "100%",
+
+                "status":
+                "Completed"
+            },
+
+            {
+                "name":
+                "Behavioral Analysis Engine",
+
+                "progress":
+                "57%",
+
+                "status":
+                "Active"
+            }
+        ]
     }
+

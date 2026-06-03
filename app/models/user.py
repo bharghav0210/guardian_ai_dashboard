@@ -10,16 +10,75 @@ class User(Base):
 
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    # =====================================
+    # PRIMARY KEY
+    # =====================================
 
-    fullname = Column(String, nullable=False)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    email = Column(String, unique=True, nullable=False)
+    # =====================================
+    # USER DETAILS
+    # =====================================
 
-    username = Column(String, unique=True, nullable=False)
+    fullname = Column(
+        String,
+        nullable=False
+    )
 
-    password = Column(String, nullable=False)
+    email = Column(
+        String,
+        unique=True,
+        nullable=False
+    )
 
-    role = Column(String, default="User")
+    username = Column(
+        String,
+        unique=True,
+        nullable=False
+    )
 
-    is_active = Column(Boolean, default=True)
+    password = Column(
+        String,
+        nullable=False
+    )
+
+    # =====================================
+    # USER ROLE
+    # =====================================
+
+    role = Column(
+        String,
+        default="individual"
+    )
+
+    # =====================================
+    # SUBSCRIPTION PLAN
+    # =====================================
+
+    plan_type = Column(
+        String,
+        default="individual"
+    )
+
+    # =====================================
+    # DASHBOARD MODE
+    # =====================================
+
+    dashboard_mode = Column(
+        String,
+        default="individual"
+    )
+
+    # =====================================
+    # ACCOUNT STATUS
+    # =====================================
+
+    is_active = Column(
+        Boolean,
+        default=True
+    )
+

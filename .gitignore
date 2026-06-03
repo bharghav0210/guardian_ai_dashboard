@@ -1,19 +1,31 @@
-```gitignore id="t6kwb4"
-# Python Cache
+```gitignore
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Virtual Env
+venv/
+.env
+
+# Node
+node_modules/
+.next/
 
 # Database
-guardian_ai.db
+*.db
 
-# Environment
-.env
-venv/
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
 
 # VSCode
 .vscode/
 
-# OS Files
-.DS_Store
-Thumbs.db
+# Environment
+.env.local
 ```

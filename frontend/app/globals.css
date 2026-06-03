@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+
+  --background: #FFFFFF;
+
+  --foreground: #0F172A;
+}
+
+body {
+
+  background: #FFFFFF;
+
+  color: #334155;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ========================================
+   DASHBOARD CARD
+======================================== */
+
+.dashboard-card {
+
+  background: #EEF2F7;
+
+  border: 1px solid #E2E8F0;
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   PRIMARY BUTTON
+======================================== */
+
+.primary-button {
+
+  background: #0B1F3A;
+
+  color: white;
+
+  border-radius: 12px;
+
+  transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+
+  background: #0F2A4D;
+}
+
+/* ========================================
+   SECTION
+======================================== */
+
+.section-background {
+
+  background: #F8FAFC;
+}
