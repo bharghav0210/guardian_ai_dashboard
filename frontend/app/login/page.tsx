@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-
+import BASE_URL from "@/services/api"
 import {
   useRouter,
   useSearchParams
@@ -68,7 +68,7 @@ export default function LoginPage() {
 
       const response = await fetch(
 
-        "http://127.0.0.1:8000/login",
+        `${BASE_URL}/login`,
 
         {
           method: "POST",
