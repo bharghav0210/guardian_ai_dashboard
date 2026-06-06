@@ -2,25 +2,13 @@
 
 import { useState } from "react"
 import BASE_URL from "@/services/api"
-import {
-  useRouter,
-  useSearchParams
-} from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
 
   const router = useRouter()
 
-  const searchParams =
-    useSearchParams()
-
-  // =====================================
-  // PLAN TYPE
-  // =====================================
-
-  const selectedPlan =
-    searchParams.get("plan") ||
-    "enterprise"
+const selectedPlan = "enterprise"
 
   // =====================================
   // STATE
